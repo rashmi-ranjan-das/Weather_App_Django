@@ -1,0 +1,40 @@
+{% extends 'weather/base.html' %}
+
+{% block heading %}
+    <div class="container" style="margin-top: 12%;">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-8 col-md-8 col-sm-8 col-xs-8">
+                    <div class="card p-4">
+                        <div class="d-flex">
+                            <h6 class="flex-grow-1">{{final_data.name}}, {{final_data.country}}</h6>
+                            <h6>{{final_data.time}}</h6>
+                        </div>
+                        <div class="d-flex flex-column temp mt-5 mb-3">
+                            <h1 class="mb-0 font-weight-bold" id="heading"> {{final_data.temp}}° C </h1> <span class="small grey">{{final_data.weather_type}}</span>
+                        </div>
+                        <div class="d-flex">
+                            <div class="temp-details flex-grow-1">
+                                <p class="my-1"> <img src="https://i.imgur.com/B9kqOzp.png" height="17px"> <span> {{final_data.wind_speed}} m/s </span> </p>
+                                <p class="my-1"> <i class="fa fa-tint mr-2" aria-hidden="true"></i> <span> {{final_data.humidity}}% </span> </p>
+                                <p class="my-1"> <img src="https://i.imgur.com/wGSJ8C5.png" height="17px"> <span> Feels like {{final_data.temp_feel}}° C </span> </p>
+                            </div>
+                            {% if final_data.temp > 35 %}
+                            <div> <img src="https://cdn.iconscout.com/icon/free/png-512/sun-bright-rays-sunny-weather-33960.png" width="100px"> </div>
+                            {% elif final_data.temp > 30  %}
+                            <div> <img src="https://www.quillproject.net/resources/resources_collection_image/57/3145" width="100px"> </div>
+                            {% elif final_data.temp < 10  %}
+                            <div> <img src="https://icon-library.com/images/cold-icon/cold-icon-14.jpg" width="100px"> </div>
+                            {% elif final_data.clouds > 50 %}
+                            <div> <img src="https://www.vhv.rs/dpng/d/459-4597100_windy-weather-clipart-at-getdrawings-windy-weather-icon.png" width="100px"> </div>
+                            {% elif final_data.clouds > 65 %}
+                            <div> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQMAAADCCAMAAAB6zFdcAAAAwFBMVEX///9cZHB+uN9VXWqnrLGtsbZcZHH//v9+uN5aYm78//9PV2RYYG1eY3BbZG9SWmf2///3+Pl4s9zR1NdQVmR5f4fh4+Vqb3dPV2HLztGCh45KU2HZ297AxMju7/B8s9i50uGGtNSsyt2doqhxdn6Ul5x8gouqrrLs+f3d6/HD4vDP4eqVxOLu9vnQ6/W43O6izeaLj5e4u7+XnKFma3GVvdfW5OyNuNWr0+qxzd+byeXj8PSdv9S93+7Z8fmNttLEqwAHAAAMG0lEQVR4nO1da3uiuhYGo0hMTAZUQKs4U7A9PW3PbLXtXNpz5v//q0MuqK2J2jYIzMM7+5kv7DBhsS7vuhAtq0GDBg0aNGjQoEGDBg0aVApeMBjPVp0Mq/Eg8Hpl7+fMCGbJFYmGiFLAQClFyB6tV4FX9s7Og3i1JBEFENr9vr0LiCnCk1VQ9gaLRtxJI4qdDLYaEKCw/TeLYXxFAbYdwqCRgRBDuvoLjSJzeF7HHmLd638DTHESl71n4+h2IIV7bxxjnLnE7G+8JwZA13+ZFFYYvNF3ii6idLJIknaSrJcpjFDmJ3f9BAGo/RfFy2lId57fwTQK17Ppa5P3sniZZnKwt8HCAXhc0o5No7tAO1aAKViMdR6vN0gI2tEYB139FQYxJflD9ZkJLAdHFHy6zjwH2Ypsdp5tFon2xUYJ+tTpHH2t3ey/WTrcag5a1twreFfRhgrQcHby0wzSrf2AsNb2EDwA4eIcG8DVu5aOQ5rHCAgGBe3vDJgCLL08Rsm7mV+H5qyBoNo6hTGF/FU6BITTD6yPJ0gSBoI6xnd3FoxRbtHD5INubYWgEIKDrs1u7jwYI5KHt48zneBBphhOHTVhKgMCwXZsfTy6eSMqmSN6n0+tAIIIChmAUc/qfSbCL6RJkYuaEWdP1ggIXX76Xu0ojw71qq2MZFgzIIIsSEY2VylI6lRZSWSeCEyIINOEoXCv4MrI7YpHZvyDyPCeE8kZ6xIcepYHBdfHobFsZwmkEOriEuSGITaV62SRJcRSrIZuWTDG0o8PB5/gBW8RA5l+K/jip0JvMXgQlkDbRjcnmHe/P+TK5cXBYJZhPA2qmFhfC/8FU8P3XQhNwMtgtXwAFFEOhABMk1m1BBFHIsuhpr2Xt0k/AH5dpWdNOpJ8JDMtCAnghAa0WVXMKMaCdCjadMTuEzDE7YpoQ0yJKBmY91Pxgf6coCNoWYnQmQC+06H5ws91dEQEzE4uJuVLwYMOy5Sg8TAep3RrA6xpz/p0GENIbOLsdHA/UrQzjBXbKbE/UTVRYxBtK/R91qjrh6PJcrGcpCFA9JWPBKTkHDtl3RHHOJubbSv0kNJRexxvX7YXzBZhFiG3YQItTLvj9yAQNmu6NzSLchXAaLRSef+gHSK8GWwBYYleIRE8hlqWQZqcGUJuBsMDLm8wGeKNspTYkbC5RoLE6E3jiPAXTHBf+2Rdpv3BJG9OObC0jsR0yH234QQ3FA9G6NVRj7/T5L8oqQTb5kkztI3e9FoWZOji2P/JUrTrTYs3E0IZrjHlfaWMJpuE6MM7x0UgENhYFOOdUurQ3tBm7ADx7MWUT/Qibl9gcvKCUV6HvghMeubTkPlvh/lks/8wdwfQ9k4X60IKAeLzU8Zr7g7wyW/sNIwvMMToXbEuiQRRwCOzWzkBE94bBKZrv9OrcPLO4sBahgd69jq03WcyoFUYmMjr0MYrOUfQjbgMUCUqGSk+rzV4cTAdDKZjymUAK1HlZSU9hnOMtQWrZQh5gRMJG4Tn90NKzARnhXbBRClo24hN4u9k7zYMq+APLOahhUcolDMP0giQfUD0UIkJqswaWEmLmGXurzAIh9hWiIBJgZZdyuG4BoUUMzbwltHeJP4WTiXmjLug0NAwjvIZZJL9cTJWmv2Bu34BAyb+ckNER2yymF51Mtw8ax8DikiYjkbpA4jAzrcYyGwl5QPwRN5gOI/l6E62FU4chUle4Ox5084VzRUkC82TctWgay34K3HM9+t7qZxBJgTQxVsiH1/jTSmHro3/4+/DlA8ysRzaLHojIMu3ECm/OPLamzljUGaNm4E4fFLYNEWYCGV3CE114o2vIvbBRvYCym75rAEbeMZmJsM2aNN8dvaQp+lETAbGRxDeDdmqhkZvOhAs3IZHMuRBBCC4KH0kIBYzrkZTWU8SI3I0L4+T0br8FrCcCzJa0pDzMISW/oZPxBKbzpumkZwSHJdSuv8A2vylmWx8jaDNq2UFEK+CsOJOEZ/YmzgB04iwWgEJy04ETocIDNjcnLOsShinXQViwGVgrrYVixTENOMoFFO+Z3NERaaiF+VXBk6HaRmIcrXpNlKxGCCjMpCmYHzcqlCI+XFo6r0JF+vQuoQEjhkw6sISs7c7DwxzpImYNarXV4aikmRs04TLANUlUxAIzeZMwiUO6xQZ86qqqdxZhAXH8JBJwZCTjcDQ7WRotGslA+nHTYVGMYZrfiC9UDzwoTZjkzF11AM5Pm2s0ZRnTHWSgTAFx9h760mZll0ufwd6YsLVYBVJfMBbm49tLV5EYkIYmqM0I0E3KjFfcRqgw2RgssuxBoZLc0VjRfs8yTPI7mc8byxytMUsPNEX5VO+phAjh/fY6pIwLIQMzI6qhvyeeF2PonJ+DoVJNchz8ZpEx5jIr+/N5vqB6LcWMdpiHiNxthQ23fqWM8DVGEg+jLWcksi8l1nLHYtRrBpUltvyXCmaGD8kI4R8BrPyJ/l1pAiKGAIZIzGZWnHCvBkdLMRqpacxyjuMY5l/IX9RyPR4II+iwKFXVZYQh/mEZFEH7a2kpbEDASuJWZQfX4rMn0YikY/mQcwUrWonEwVXGaGXp48WR2M8+fWxDfmBE5WSQbzeDtMPi/yiLbblFCoBpFIxMlgDIE+gtYv+7D0m+SgupGFVfisiXo0ikH874GBYbHLbs+KHzYQ+pGBZ+hlV8eA6pRTb+Sy9g44fEvBpeKPNGTXExpTa6SJpl4P1MiVU/nBDfo5WdJ62cHLx6kse/msapQC/OTbMhtHkXHo5JdSuIDA665eFnUwDjx3edU4Q4mCUnnlQyGvj/V+ZKQ/s9z1KKHX2ZqPMH0Pt702dB/2MswIEJzMeDEogbfFswQ7romX5REApAuGkMy2Zp8SB/Pm982O1mg0qeZhogwYNGjQwi+NVsJp8UCXw/PQv3aUvNzdaTvN8o112r79jJfHlce7Pv6uf9HY+97+pHqdreY++76uX9S7nvv/7i8lNFoxHv9Vq+f/ev9CzbubZpZarfJoX3TLL+uq33Jb70+w2i8Qtf87WneraI7/k/0dx6Slftm/19/OW67qteW0UofetJR5GodWZeFylDLpW74dY9kOx7KXFl9VHBl998a4VmutJ8fgKhyCXtf7ZvyQMSC3VSuJebthVPOevllY8+bK5YtkfV29BlcSLfM7v+5eec/EodPpSv4xriOv6v+uiBk87z/l6z92NeBSu/0YvnvsDBlRJ9B6592J6u+febw+Y9WNLq+6XmQ5oDKiaEI7fbf3eb832vkmz/p9ymU48XEMyKag5RQXB9NYVersng68trePP4gVb5arEwwmXq+FOVcQl36+r8mz3czd3/HtWoo0XXevWZ/TIrU9cvGGWkP1R6e2LfNUH4oWCAzFGwUSg0pBq4pFrgVJvnwRDVJr1i+vq4sUv7gzcTENqkjcf8Gy9A45fLFOq+7M0oFZt4mIeyBV6mztEBc/pbR3i3rvOGcV/C9lwAfilZ/z3h8XjapYJwuW6d7WJi9ISVHqbM+Gf+/WwXDyKZTKVdGuUKPi53u6p9C4TfnvxRZAqbaKQXfxd0I6N40lagkpvcwL93kTBrVOi0LV6f/QWf5uLR+EQf+jjxaUIpioNqSYOMOEvhxyiL+KiIl4c0JBqIvdsqsrJ15bw/Pp4oU4UNhpSE3p0oHLC44WrjReuRt03hEv8BlH1cSP5nD5ROBQvVPnF/TcZL54L2bB57FRO9vA0F9mAOl60dPHiUhpJzSonOsfvqsvpu/nFnoY85ylWPeLiTsl8z7N1ra+uNl7olwkNcXVdpyril76jIMxa01Fo5cve6EFXaIirNqBK4lnv2Q6VzJ/1HYVDGWg18fIBJtxl+UUeL/YgmZP/T10KaLe541dsWMuEu9vCkqpystGQelCDQ3p7y2iD6/r6REGZF4tUskaJgswXfYXjtx71HQXZj/IVefG9rJz8qItDFMXvlqvqlVp/WtoOEcsl2UiBYtkzN64aVU44m+ElEIXpirKKkucwm1dXTvKOS21arBkuswf1s0CukMHzNw1DtASp8NXx/9bPUBuGyHF7d/ddY7r3l3e/dTH+wLKnl7uftRJBg49/QFGP0N+gQYMGDRo0aNCgQYMGDRo0aNCgQYMGDRo02MX/Aawp3JAeiE5hAAAAAElFTkSuQmCC" width="100px"> </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+{% endblock %}
